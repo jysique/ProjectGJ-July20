@@ -6,34 +6,58 @@ using UnityEngine.AI;
 public class PathFinding : MonoBehaviour
 {
     NavMeshAgent agent;
+    Player player;
     public float speed;
     public float lookRange;
     public Transform goal;
     public LayerMask enemyMask;
-    public Transform target;
+    public Transform enemy;
+    public Transform actTarget;
+
+    [Header ("Combat Stats")]
+    public bool isAttacking;
+    public int damage;
+    public float attackSpeed;
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GetComponent<Player>();
         agent.speed = speed;
-        if (target == null) {
-            target = goal;
+        if (actTarget == null) {
+            actTarget = goal;
         }
-        target = findMaskObjectives(this.transform, lookRange, enemyMask, target,goal);
+        enemy = findMaskObjectives(this.transform, lookRange, enemyMask, actTarget,goal);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target == null) {
-            target = goal;
-        } else {
-            agent.SetDestination(target.position);
+        if (actTarget == null) {
+            actTarget = goal;
+        }
+        enemy = findMaskObjectives(this.transform, lookRange, enemyMask, actTarget, goal);
+        actTarget = enemy;
+
+        agent.SetDestination(actTarget.position);
+
+        if (Vector3.Distance(transform.position, enemy.position) < 1.5f) {
+            if (!isAttacking) {
+                //play attack
+                StartCoroutine(startAttack());
+            }
         }
 
-        target = findMaskObjectives(this.transform, lookRange, enemyMask, target,goal);
-        agent.SetDestination(target.position);
+        Dead(this.gameObject, player.salubrity);
+    }
 
+    IEnumerator startAttack() {
+        isAttacking = true;
+        EnemyController _enemy = enemy.GetComponent<EnemyController>();
+        _enemy.life -= damage;
+        print(_enemy.name + ": " + _enemy.life);
+        yield return new WaitForSeconds(attackSpeed);
+        isAttacking = false;
     }
 
     public static Transform findMaskObjectives(Transform _Caller, float _size, LayerMask _mask, Transform _target, Transform defaultDestination) {
@@ -54,6 +78,12 @@ public class PathFinding : MonoBehaviour
             _target = defaultDestination;
         }
         return _target;
+    }
+
+    public static void Dead(GameObject _Caller , int _life) {
+        if (_life <= 0) {
+            Destroy(_Caller);
+        }
     }
 
     private void OnDrawGizmosSelected() {
