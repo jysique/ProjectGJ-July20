@@ -31,7 +31,13 @@ public class GameController : MonoBehaviour
     int current_index = 0;
     void Start()
     {
-        SetName();
+        InitPlayers();
+        panelStats.SetActive(true);
+        panelPlayers.gameObject.SetActive(true);
+        panelSetName.SetActive(false);
+        ButtonsFuncionality();
+        sapitoHuebon = true;
+        //StartGame();
     }
     void ButtonsFuncionality(){
         for(int i = 0; i < array.Length; i++){
@@ -104,7 +110,7 @@ public class GameController : MonoBehaviour
         panelPlayers.gameObject.SetActive(false);
         panelStats.SetActive(false);
         panelSettings.SetActive(false);
-        panelSetName.SetActive(true);
+        
 
         // btnSetting.onClick.AddListener(()=>GoSettings());
         btnSetting.onClick.AddListener(()=>RemoveStatus());
@@ -112,23 +118,22 @@ public class GameController : MonoBehaviour
     void SetName(){
         panelSetName.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(()=>RegisterPlayer());
     }
+    void StartGame(){
+        panelSetName.SetActive(true);
+        SetName();
+    }
     void RegisterPlayer()
     {
-        InitPlayers();
+        
         InputField _temp =  panelSetName.transform.GetChild(2).GetComponent<InputField>();
         Text temp = _temp.transform.GetChild(2).GetComponent<Text>();
-        panelStats.SetActive(true);
-        panelPlayers.gameObject.SetActive(true);
-        panelSetName.SetActive(false);
-        ButtonsFuncionality();
-        Debug.Log("del sapo huevon: " + _temp.text);
-        Debug.Log("del koala: " + temp.text);
+        
         players[0].GetComponent<Player>().setName(_temp.text);
         panelPlayers.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = _temp.text;
-        sapitoHuebon = true;
+        
         players[0].name = _temp.text;
         current_index = 0;
-        // ShowPlayerStats(0);
+        panelSetName.SetActive(false);
     }
     void GoSettings(){
         panelSettings.SetActive(true);
