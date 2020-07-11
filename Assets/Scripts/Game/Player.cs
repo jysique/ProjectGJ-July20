@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using System;
-public enum StatePlayer{
-    SICKNESS,
-    OPEN_WOUND,
-    NORMAL
-};
 
 [System.Serializable]
 public class Player: MonoBehaviour{
     public string name;
-    public StatePlayer status = StatePlayer.NORMAL;
+    public string[] status = new string[1];
     public bool sex;
     public int capacity;
     public int max_weight;
@@ -25,6 +20,34 @@ public class Player: MonoBehaviour{
     public bool envy;
     public bool wrath;
 
+    public void setName(string _name){
+        name = _name;
+    }
+    public void setStatus(string _status,int _indice){
+        status[_indice] = _status;
+    }
+    public void addStatus(string _newStatus){
+        string[] _newArray = new string[status.Length + 1];
+        for (int i = 0; i < status.Length; i++)
+        {
+            _newArray[i] = status[i];
+            
+        }
+        _newArray[status.Length] = _newStatus;
+        status = _newArray;
+    }
+
+    public void deleteStatus(int _posDelete){
+        string[] _newArray = new string[status.Length];
+        for (int i = _posDelete-1; i < status.Length-1; i++)
+        {
+            _newArray[i] =status[i+1];
+        }
+        status = _newArray;
+    }
+    public string[] getStatus(){
+        return status;
+    }
     public int ChooseWithProbability(int[] probs){
         int rand;
         rand = UnityEngine.Random.Range(1,101);
