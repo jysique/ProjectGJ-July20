@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 274221bd13a61874f9dd2e8174c72495
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/koala.unity
     guid: b9e7b8ed62269fa42b78edb96efeb14d
   - enabled: 1
