@@ -24,13 +24,10 @@ public class GameController : MonoBehaviour
     
     [SerializeField]
     private Transform panelPlayers;
-    private void Awake() {
-        players  = new Player[current_players];
-        array = new Button[current_players];
-        InitPanels();
-        InitPlayers();
-        InstantiatePlayers();
 
+    private bool _tempBool;
+    private void Awake() {
+        InitPanels();
     }
     int current_index = 0;
     void Start()
@@ -69,7 +66,11 @@ public class GameController : MonoBehaviour
     }
     void Update()
     {
-        ShowPlayerStats(current_index);
+        //print(current_index);
+        if(_tempBool){
+            ShowPlayerStats(current_index);
+        }
+        
     }
     //=============
     void AddStatus(){
@@ -116,12 +117,20 @@ public class GameController : MonoBehaviour
         panelSetName.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(()=>RegisterPlayer());
     }
     void RegisterPlayer(){
+        players  = new Player[current_players];
+        array = new Button[current_players];
+        
+        InitPlayers();
+        InstantiatePlayers();
+        ButtonsFuncionality();
+        _tempBool = true;
+
         InputField _temp =  panelSetName.transform.GetChild(2).GetComponent<InputField>();
         players[0].setName(_temp.text);
         panelStats.SetActive(true);
         panelPlayers.gameObject.SetActive(true);
         panelSetName.SetActive(false);
-        ButtonsFuncionality();
+
         // ShowPlayerStats(0);
     }
     void GoSettings(){
