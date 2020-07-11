@@ -166,7 +166,7 @@ PrefabInstance:
     - target: {fileID: 6305204109301621888, guid: 69c1180da9f6913479f60fba879e2083,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6305204109301621888, guid: 69c1180da9f6913479f60fba879e2083,
         type: 3}
@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622013, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6305204109301622014, guid: 69c1180da9f6913479f60fba879e2083,
         type: 3}
       propertyPath: m_Name
@@ -193,6 +198,16 @@ PrefabInstance:
       propertyPath: goal
       value: 
       objectReference: {fileID: 320047553}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: damage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c1180da9f6913479f60fba879e2083, type: 3}
 --- !u!1 &66744305
@@ -2043,7 +2058,7 @@ PrefabInstance:
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.34
+      value: 8.1
       objectReference: {fileID: 0}
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
@@ -2053,7 +2068,7 @@ PrefabInstance:
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.18
+      value: -0.5799997
       objectReference: {fileID: 0}
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
@@ -2099,6 +2114,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: life
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e892759b484d84f8cbc4c35a7070d1, type: 3}
@@ -2299,7 +2329,7 @@ PrefabInstance:
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.34
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
@@ -2309,7 +2339,7 @@ PrefabInstance:
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.4
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
@@ -2355,6 +2385,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: life
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e892759b484d84f8cbc4c35a7070d1, type: 3}
@@ -4335,6 +4380,41 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896423925}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1933058719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6305204109301622014, guid: 69c1180da9f6913479f60fba879e2083,
+    type: 3}
+  m_PrefabInstance: {fileID: 52507605}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1933058720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933058719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c45a4e14a1c77a944b25c8f15f40d041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: sapito webon
+  status:
+  - 
+  sex: 0
+  capacity: 0
+  max_weight: 0
+  sanity: 0
+  hunger: 0
+  salubrity: 100
+  fatigue: 0
+  gluttony: 0
+  sloth: 0
+  greed: 0
+  lust: 0
+  pride: 0
+  envy: 0
+  wrath: 0
 --- !u!1 &1955970040
 GameObject:
   m_ObjectHideFlags: 0
@@ -4778,8 +4858,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: life
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e892759b484d84f8cbc4c35a7070d1, type: 3}
+--- !u!1 &2108608837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6305204109301622014, guid: 69c1180da9f6913479f60fba879e2083,
+    type: 3}
+  m_PrefabInstance: {fileID: 6305204109344093506}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2108608838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108608837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c45a4e14a1c77a944b25c8f15f40d041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: koala webon
+  status:
+  - 
+  sex: 0
+  capacity: 0
+  max_weight: 0
+  sanity: 0
+  hunger: 0
+  salubrity: 100
+  fatigue: 0
+  gluttony: 0
+  sloth: 0
+  greed: 0
+  lust: 0
+  pride: 0
+  envy: 0
+  wrath: 0
 --- !u!1 &2118442758
 GameObject:
   m_ObjectHideFlags: 0
@@ -5013,7 +5143,7 @@ PrefabInstance:
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1684801802567685458, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
@@ -5034,6 +5164,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: life
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e892759b484d84f8cbc4c35a7070d1, type: 3}
@@ -5099,6 +5244,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622013, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6305204109301622014, guid: 69c1180da9f6913479f60fba879e2083,
         type: 3}
       propertyPath: m_Name
@@ -5109,5 +5259,15 @@ PrefabInstance:
       propertyPath: goal
       value: 
       objectReference: {fileID: 320047553}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: damage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c1180da9f6913479f60fba879e2083, type: 3}
