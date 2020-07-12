@@ -20,8 +20,53 @@ public class Player: MonoBehaviour{
     public bool envy;
     public bool wrath;
 
+    public Player(){
+        
+    }
     public void setName(string _name){
         name = _name;
+    }
+    public string getName(){
+        return name;
+    }
+    public bool getSex(){
+        return sex;
+    }
+    public void setCapacity(int _capacity){
+        capacity = _capacity;
+    }
+    public int getCapacity(){
+        return capacity;
+    }
+    public void setMaxWeight(int _max_weight){
+        max_weight = _max_weight;
+    }
+    public int getMaxWeight(){
+        return max_weight;
+    }
+    public void setSanity(int _value){
+        sanity +=_value;
+    }
+    public int getSanity(){
+        return sanity;
+    }
+    public void setHunger(int _value){
+        hunger +=_value;
+    }
+    public int getHunger(){
+        return hunger;
+    }
+    public void setSalubrity(int _value){
+        salubrity +=_value;
+    }
+    public int getSalubrity(){
+        return salubrity;
+    }
+    public void setFatigue(int _value){
+        fatigue +=_value;
+    }
+    public int getFatigue(){
+        return fatigue;
     }
     public void setStatus(string _status,int _indice){
         status[_indice] = _status;
@@ -36,7 +81,6 @@ public class Player: MonoBehaviour{
         _newArray[status.Length] = _newStatus;
         status = _newArray;
     }
-
     public void deleteStatus(int _posDelete){
         string[] _newArray = new string[status.Length];
         for (int i = _posDelete-1; i < status.Length-1; i++)
@@ -66,7 +110,6 @@ public class Player: MonoBehaviour{
         }
         return 0;
     }
-
     public bool CanEnterTheParty(Player otherPlayer){
         int probabilityChange = 0;
         //conditions

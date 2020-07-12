@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     private int max_players = 5;
-    private int current_players = 3;
-    public enum sceneType {
+    public int current_players = 3;
+    public enum SCENE_TYPE {
         InitialRoom,
         BreakRoom,
         ScoutRoom,
     };
-    public sceneType _sceneType;
+    public SCENE_TYPE sceneType;
     public Transform goal;
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject player;
@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     private Button[] array;
     [Header("Objects")]
     [SerializeField] private Button btnSetting;
+    [SerializeField] private Button btnBackSetting;
     [Header("Panels")]
     [SerializeField] private GameObject panelStats;
     [SerializeField] private GameObject panelSetName;
@@ -29,7 +30,13 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject prefabPlayer;
     [SerializeField] private Transform panelPlayers;
     private bool sapitoHuebon;
+
+    public static GameController instance;
     private void Awake() {
+        if (instance == null)
+        {
+            instance = this;
+        }
         players  = new GameObject[current_players];
         array = new Button[current_players];
         InitPanels();
@@ -50,7 +57,7 @@ public class GameController : MonoBehaviour
     void ButtonsFuncionality(){
         for(int i = 0; i < array.Length; i++){
             int index = i;
-            current_index = i;
+            //current_index = i;
             array[i].transform.GetChild(0).GetComponent<Text>().text = players[i].name;
             array[i].onClick.AddListener(() => ChangeIndex(index));
         }
@@ -60,6 +67,7 @@ public class GameController : MonoBehaviour
     }
 
     void ShowPlayerStats(int index){
+        // panelStats.transform.GetChild(1).GetComponent<Slider>().value = PlayerData.instance.players[index].GetComponent<Player>().sanity;
         panelStats.transform.GetChild(1).GetComponent<Slider>().value = players[index].GetComponent<Player>().sanity;
         panelStats.transform.GetChild(2).GetComponent<Slider>().value = players[index].GetComponent<Player>().hunger;
         panelStats.transform.GetChild(3).GetComponent<Slider>().value = players[index].GetComponent<Player>().salubrity;
@@ -82,7 +90,7 @@ public class GameController : MonoBehaviour
         if (sapitoHuebon)
             ShowPlayerStats(current_index);
     }
-    //=============
+
     void AddStatus(){
         players[current_index].GetComponent<Player>().addStatus("ENFERMO");
     }
@@ -101,28 +109,62 @@ public class GameController : MonoBehaviour
         }
     }
     void InitPlayers(){
-        for (int i = 0; i < players.Length; i++)
+        if (sceneType == SCENE_TYPE.InitialRoom)
         {
-            players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
-            players[i].GetComponent<Player>().sanity = 60;
-            players[i].GetComponent<Player>().salubrity = 100;
-            players[i].GetComponent<Player>().hunger = 100;
-            players[i].GetComponent<Player>().fatigue = 100;
-            players[i].GetComponent<Player>().status = new string[]{"N","ENF","XDD","AA"};
-        }
-        players[0].name = "Jose";
-        players[1].name = "Juan";
-        players[2].name = "Pedro";
+        for (int i = 0; i < players.Length; i++)
+            {
+                players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
+                players[i].GetComponent<Player>().capacity = 2;
+                players[i].GetComponent<Player>().max_weight = RandomValue(60,100);
+                players[i].GetComponent<Player>().sanity= RandomValue(80,100);
+                players[i].GetComponent<Player>().hunger=RandomValue(0,30);
+                players[i].GetComponent<Player>().salubrity=RandomValue(80,100);
+                players[i].GetComponent<Player>().fatigue=RandomValue(0,30);
+                players[i].GetComponent<Player>().status = new string[0];
+            }
+            players[0].name = "Jose";
+            players[1].name = "Juan";
+            players[2].name = "Pedro"; 
+        }else{
+            for (int i = 0; i < players.Length; i++)
+            {
+                // print(PlayerData.instance.players[i].capacity);
+                
+                // players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
+                players[i].GetComponent<Player>() = PlayerData.instance.players[i];
+
+
+                // players[i].GetComponent<Player>().capacity = PlayerData.instance.players[i].capacity;
+                // players[i].GetComponent<Player>().max_weight = PlayerData.instance.players[i].max_weight;
+                // players[i].GetComponent<Player>().sanity= PlayerData.instance.players[i].sanity;
+                // players[i].GetComponent<Player>().hunger=PlayerData.instance.players[i].hunger;
+                // players[i].GetComponent<Player>().salubrity=PlayerData.instance.players[i].salubrity;
+                // players[i].GetComponent<Player>().fatigue=PlayerData.instance.players[i].fatigue;
+                // players[i].GetComponent<Player>().status = PlayerData.instance.players[i].status;
+            }
+            players[0].name = "Jose";
+            players[1].name = "Juan";
+            players[2].name = "Pedro";  
+        }  
+    }
+    private int RandomValue(int _minValue,int _maxValue){
+        return Random.Range(_minValue,_maxValue);
     }
     void InitPanels(){
         panelPlayers.gameObject.SetActive(false);
         panelStats.SetActive(false);
         panelSettings.SetActive(false);
         
-
+        btnBackSetting.onClick.AddListener(()=>BackToGame());
         // btnSetting.onClick.AddListener(()=>GoSettings());
-        btnSetting.onClick.AddListener(()=>RemoveStatus());
+        //btnSetting.onClick.AddListener(()=>RemoveStatus());
+        btnSetting.onClick.AddListener(()=>ChangeScene());
     }
+    void ChangeScene(){
+        PlayerData.instance.SaveDataPlayer();
+        SceneManager.LoadScene("Temp");
+    }
+
     void SetName(){
         panelSetName.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(()=>RegisterPlayer());
     }
@@ -145,5 +187,9 @@ public class GameController : MonoBehaviour
     }
     void GoSettings(){
         panelSettings.SetActive(true);
+    }
+
+    void BackToGame(){
+        panelSettings.SetActive(false);
     }
 }
