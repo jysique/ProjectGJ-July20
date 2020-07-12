@@ -628,17 +628,18 @@ MonoBehaviour:
   - {fileID: 1227931657}
   - {fileID: 1359307246}
   - {fileID: 1690159642}
-  prefabsObjects:
-  - {fileID: 1057562948454648, guid: 936b6197990da6741b80aa4446553ae7, type: 3}
-  - {fileID: 1904740270614882, guid: 76b431e064cf75347890d21410801432, type: 3}
-  - {fileID: 1849262115775594, guid: e91605ea020c0b548a710f1b01136182, type: 3}
-  - {fileID: 1748008716449986, guid: ace24fc4dd6483a4aa5d9ce943ba957c, type: 3}
-  - {fileID: 1313772739049634, guid: 1ce7910b6bd5c0f4895f56aba7669717, type: 3}
-  - {fileID: 1996175130563874, guid: f1fd43e226df8ac4b9ec292cbd80ff0b, type: 3}
-  - {fileID: 1182599687114444, guid: f8d0f3737197d764b928916a0cf1d45f, type: 3}
-  - {fileID: 1234217791312416, guid: c464656f94182a34f8785f2cba820811, type: 3}
-  - {fileID: 1239407913386324, guid: 24b9985a7bbd5404792d60ae2e52856a, type: 3}
+  prefabsObstacles:
   - {fileID: 1896500414328670, guid: a8b3e795183c0314ea641e2e250faf06, type: 3}
+  - {fileID: 1182599687114444, guid: f8d0f3737197d764b928916a0cf1d45f, type: 3}
+  - {fileID: 1996175130563874, guid: f1fd43e226df8ac4b9ec292cbd80ff0b, type: 3}
+  - {fileID: 1661291286302674, guid: 47ff4b3fa66b04940a2e9a3d0328da11, type: 3}
+  - {fileID: 1003654947944274, guid: 092f5d5ad6cb4cf4f9bb90df4978c490, type: 3}
+  prefabsItem:
+  - {fileID: 1904740270614882, guid: 76b431e064cf75347890d21410801432, type: 3}
+  - {fileID: 1057562948454648, guid: 936b6197990da6741b80aa4446553ae7, type: 3}
+  - {fileID: 1313772739049634, guid: 1ce7910b6bd5c0f4895f56aba7669717, type: 3}
+  - {fileID: 1748008716449986, guid: ace24fc4dd6483a4aa5d9ce943ba957c, type: 3}
+  - {fileID: 1849262115775594, guid: e91605ea020c0b548a710f1b01136182, type: 3}
 --- !u!4 &450162487
 Transform:
   m_ObjectHideFlags: 0

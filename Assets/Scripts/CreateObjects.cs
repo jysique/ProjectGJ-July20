@@ -8,11 +8,15 @@ public class CreateObjects : MonoBehaviour
     [SerializeField] private int cantObjects;
     public GameObject[] Floor;
     List<NavMeshSurface> navMeshSurfaces = new List<NavMeshSurface>();
-    [SerializeField] private List <GameObject> prefabsObjects;
+    [SerializeField] private List <GameObject> prefabsObstacles;
+    [SerializeField] private List <GameObject> prefabsItem;
     private int prefabSelected;
     private int posX, posZ;
     private int newPosX;
     private int newPosZ;
+    private int typeObject;
+    private int cObstacles;
+    private int cItem;
     private void Awake()
     {
         posX = 0;
@@ -21,13 +25,53 @@ public class CreateObjects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < cantObjects;)
+        cObstacles = prefabsObstacles.Count;
+        cItem = prefabsItem.Count;
+        for (int i = 0; i < cantObjects;)
         {
-            prefabSelected = Random.Range(0, prefabsObjects.Count);
+            typeObject = Random.Range(0, 2);
+            if (typeObject == 0)
+                prefabSelected = Random.Range(0, cObstacles);
+            else if (typeObject == 1)
+                prefabSelected = Random.Range(cObstacles, (cObstacles + cItem));
             newPosX = Random.Range(0, 2);
-            GameObject newObj = Instantiate(prefabsObjects[prefabSelected], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
-            newObj.AddComponent<NavMeshSurface>();
-            navMeshSurfaces.Add(newObj.GetComponent<NavMeshSurface>());
+            GameObject newObj;
+            //GameObject newObj = Instantiate(prefabsObjects[prefabSelected], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+            //newObj.AddComponent<NavMeshSurface>();
+            //navMeshSurfaces.Add(newObj.GetComponent<NavMeshSurface>());
+            switch (prefabSelected)
+            {
+                case 0:
+                    newObj = Instantiate(prefabsObstacles[0], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 1:
+                    newObj = Instantiate(prefabsObstacles[1], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 2:
+                    newObj = Instantiate(prefabsObstacles[2], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 3:
+                    newObj = Instantiate(prefabsObstacles[3], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 4:
+                    newObj = Instantiate(prefabsObstacles[4], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 5:
+                    newObj = Instantiate(prefabsItem[0], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 6:
+                    newObj = Instantiate(prefabsItem[1], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 7:
+                    newObj = Instantiate(prefabsItem[2], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 8:
+                    newObj = Instantiate(prefabsItem[3], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+                case 9:
+                    newObj = Instantiate(prefabsItem[4], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
+                    break;
+            }
             /*
             if (prefabSelected == 0) {
                 newObj = Instantiate(prefabsObjects[0], new Vector3(posX, 0.5f, posZ), Quaternion.identity, this.transform);
