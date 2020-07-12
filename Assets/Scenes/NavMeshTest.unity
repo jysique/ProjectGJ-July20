@@ -2130,6 +2130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1684801802567685468, guid: 25e892759b484d84f8cbc4c35a7070d1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1684801802567685469, guid: 25e892759b484d84f8cbc4c35a7070d1,
         type: 3}
       propertyPath: attackSpeed
@@ -5209,10 +5214,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Item
       objectReference: {fileID: 0}
-    - target: {fileID: 3232073673141776211, guid: c52df2345568b3f429db6aa23f6d7e36,
+    - target: {fileID: 2287541589231593229, guid: c52df2345568b3f429db6aa23f6d7e36,
         type: 3}
-      propertyPath: m_Radius
-      value: 1.5
+      propertyPath: playerMask.m_Bits
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
         type: 3}
