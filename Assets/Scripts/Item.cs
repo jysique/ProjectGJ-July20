@@ -16,7 +16,7 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkRadius();
+        //checkRadius();
     }
 
     public void OnClickItem(){
@@ -28,6 +28,11 @@ public class Item : MonoBehaviour
         if (Physics.CheckSphere(transform.position, 1.5f, playerMask)) {
             Destroy(this.gameObject);
         }
+    }
+
+    private void OnDrawGizmosSelected() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 1.5f);
     }
 
 }

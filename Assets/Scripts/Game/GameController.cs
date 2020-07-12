@@ -167,7 +167,7 @@ public class GameController : MonoBehaviour
         panelStats.SetActive(false);
         panelSettings.SetActive(false);
         
-        btnBackSetting.onClick.AddListener(()=>BackToGame());
+        //btnBackSetting.onClick.AddListener(()=>BackToGame());
         // btnSetting.onClick.AddListener(()=>GoSettings());
         //btnSetting.onClick.AddListener(()=>RemoveStatus());
         btnSetting.onClick.AddListener(()=>ChangeScene());
