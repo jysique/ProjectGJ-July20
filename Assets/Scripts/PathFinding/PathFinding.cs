@@ -8,10 +8,14 @@ public class PathFinding : MonoBehaviour
     NavMeshAgent agent;
     Player player;
     public float speed;
-    public float lookRange;
+    public float lookEnemyRange;
+    public float lookItemRange;
     public Transform goal;
+    Transform item;
+    public LayerMask itemMask;
+    Transform enemy;
     public LayerMask enemyMask;
-    public Transform enemy;
+    
     public Transform actTarget;
 
     [Header ("Combat Stats")]
@@ -27,7 +31,6 @@ public class PathFinding : MonoBehaviour
         if (actTarget == null) {
             actTarget = goal;
         }
-        enemy = findMaskObjectives(this.transform, lookRange, enemyMask, actTarget,goal);
     }
 
     // Update is called once per frame
@@ -36,15 +39,24 @@ public class PathFinding : MonoBehaviour
         if (actTarget == null) {
             actTarget = goal;
         }
-        enemy = findMaskObjectives(this.transform, lookRange, enemyMask, actTarget, goal);
-        actTarget = enemy;
+
+        item = findMaskObjectives(this.transform, lookItemRange, itemMask, item, null);
+        if (item != null) {
+            actTarget = item;
+        }
+        enemy = findMaskObjectives(this.transform, lookEnemyRange, enemyMask, enemy, null);
+        if (enemy != null) {
+            actTarget = enemy;
+        }
 
         agent.SetDestination(actTarget.position);
 
-        if (Vector3.Distance(transform.position, enemy.position) < 1.5f) {
-            if (!isAttacking) {
-                //play attack
-                StartCoroutine(startAttack());
+        if (enemy != null) {
+            if (Vector3.Distance(transform.position, enemy.position) < 1.5f) {
+                if (!isAttacking) {
+                    //play attack
+                    StartCoroutine(startAttack());
+                }
             }
         }
 
@@ -88,6 +100,6 @@ public class PathFinding : MonoBehaviour
 
     private void OnDrawGizmosSelected() {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, lookRange);
+        Gizmos.DrawWireSphere(transform.position, lookEnemyRange);
     }
 }

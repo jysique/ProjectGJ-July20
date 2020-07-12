@@ -208,6 +208,21 @@ PrefabInstance:
       propertyPath: attackSpeed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: lookEnemyRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: lookItemRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: itemMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c1180da9f6913479f60fba879e2083, type: 3}
 --- !u!1 &66744305
@@ -5182,6 +5197,80 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25e892759b484d84f8cbc4c35a7070d1, type: 3}
+--- !u!1001 &5666230396553121336
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 613727179469257181, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_Name
+      value: Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3232073673141776211, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073705079958284421, guid: c52df2345568b3f429db6aa23f6d7e36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c52df2345568b3f429db6aa23f6d7e36, type: 3}
 --- !u!1001 &6305204109344093506
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5268,6 +5357,21 @@ PrefabInstance:
         type: 3}
       propertyPath: attackSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: lookEnemyRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: lookItemRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305204109301622015, guid: 69c1180da9f6913479f60fba879e2083,
+        type: 3}
+      propertyPath: itemMask.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c1180da9f6913479f60fba879e2083, type: 3}
