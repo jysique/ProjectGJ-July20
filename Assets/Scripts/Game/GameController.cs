@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 public class GameController : MonoBehaviour
 {
     private int max_players = 5;
-    public int current_players = 3;
+    public int current_players;
     public enum SCENE_TYPE {
         InitialRoom,
         BreakRoom,
@@ -18,11 +19,12 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3[] posPlayer;
+    
+    private Button[] array;
     [Header("Party data")]
     public GameObject[] players;
     public int food = 7;
     public int survivedDays = 1;
-    private Button[] array;
     [Header("Objects")]
     [SerializeField] private Button btnSetting;
     [SerializeField] private Button btnBackSetting;
@@ -33,6 +35,8 @@ public class GameController : MonoBehaviour
     [Header("Prefab Player Icon")]
     [SerializeField] private GameObject prefabPlayer;
     [SerializeField] private Transform panelPlayers;
+
+    Dictionary<string,bool> list_users = new Dictionary<string, bool>();
     private bool sapitoHuebon;
 
     public static GameController instance;
@@ -41,33 +45,60 @@ public class GameController : MonoBehaviour
         {
             instance = this;
         }
+        if(sceneType == SCENE_TYPE.InitialRoom){
+            current_players = 3;
+        }else{
+            current_players = PlayerData.instance.current_players;
+        }
         players  = new GameObject[current_players];
         array = new Button[current_players];
         InitPanels();
-        InstantiatePlayers();
+        InstantiateButton();
         sapitoHuebon = false;
     }
     int current_index = 0;
     void Start()
     {
+        AddUserToDicc();
         InitPlayers();
         panelStats.SetActive(true);
         panelPlayers.gameObject.SetActive(true);
         panelSetName.SetActive(false);
         ButtonsFuncionality();
         sapitoHuebon = true;
+        ShowPlayerStats(current_index);
         //StartGame();
+
+    }
+
+    void AddUserToDicc(){
+        list_users.Add("Joseph", false);  
+        list_users.Add("Lina",true);  
+        list_users.Add("Chuck", false);
+        list_users.Add("Deck", false);
+        list_users.Add("Steward", false);
+        list_users.Add("Alpha", false);
+        list_users.Add("Omega", true);
+        list_users.Add("Gamma", false);
+        list_users.Add("Juana", true);
+        list_users.Add("Alejandro", false);
+        list_users.Add("Ana", true);
+        list_users.Add("Karina", true);
+        list_users.Add("Angel", false);
     }
     void ButtonsFuncionality(){
+        
         for(int i = 0; i < array.Length; i++){
             int index = i;
             //current_index = i;
-            array[i].transform.GetChild(0).GetComponent<Text>().text = players[i].name;
+            array[i].transform.GetChild(0).GetComponent<Text>().text = players[i].GetComponent<Player>().name;
             array[i].onClick.AddListener(() => ChangeIndex(index));
         }
+
     }
     void ChangeIndex(int _index){
         current_index = _index;
+        ShowPlayerStats(current_index);
     }
 
     void ShowPlayerStats(int index){
@@ -91,8 +122,8 @@ public class GameController : MonoBehaviour
     }
     void Update()
     {
-        if (sapitoHuebon)
-            ShowPlayerStats(current_index);
+        // if (sapitoHuebon)
+            // ShowPlayerStats(current_index);
     }
 
     void AddStatus(){
@@ -101,7 +132,10 @@ public class GameController : MonoBehaviour
     void RemoveStatus(){
         players[current_index].GetComponent<Player>().deleteStatus(1);
     }
-    void InstantiatePlayers(){
+    void InstantiateButton(){
+        foreach (Transform childTransform in panelPlayers.transform) {
+            Destroy(childTransform.gameObject);
+        }
         if (players.Length<= max_players)
         {
             for (int i = 0; i < players.Length; i++)
@@ -113,11 +147,19 @@ public class GameController : MonoBehaviour
         }
     }
     void InitPlayers(){
+        System.Random r = new System.Random();
         if (sceneType == SCENE_TYPE.InitialRoom)
         {
         for (int i = 0; i < players.Length; i++)
             {
                 players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
+
+                // players[i].GetComponent<Player>().name = 
+                KeyValuePair<string,bool> pair = list_users.ElementAt(RandomValue(0,list_users.Count));
+                players[i].name = pair.Key;
+                players[i].transform.GetChild(0).GetComponent<TextMesh>().text = pair.Key;
+                players[i].GetComponent<Player>().name = pair.Key;
+                players[i].GetComponent<Player>().sex = pair.Value;
                 players[i].GetComponent<Player>().capacity = 2;
                 players[i].GetComponent<Player>().max_weight = RandomValue(60,100);
                 players[i].GetComponent<Player>().sanity= RandomValue(80,100);
@@ -133,18 +175,15 @@ public class GameController : MonoBehaviour
                 players[i].GetComponent<Player>().pride = Convert.ToBoolean(RandomValue(0,1));
                 players[i].GetComponent<Player>().envy = Convert.ToBoolean(RandomValue(0,1));
                 players[i].GetComponent<Player>().wrath = Convert.ToBoolean(RandomValue(0,1));
+
             }
-            players[0].GetComponent<Player>().name = "Jose";
-            players[1].GetComponent<Player>().name = "Juan";
-            players[2].GetComponent<Player>().name = "Pedro";
-            players[0].name = "Jose";
-            players[1].name = "Juan";
-            players[2].name = "Pedro"; 
         }else{
             for (int i = 0; i < players.Length; i++)
             {   
                 players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
+                players[i].transform.GetChild(0).GetComponent<TextMesh>().text = PlayerData.instance.players[i].name;
                 players[i].GetComponent<Player>().name = PlayerData.instance.players[i].name;
+                players[i].GetComponent<Player>().sex = PlayerData.instance.players[i].sex;
                 players[i].GetComponent<Player>().capacity = PlayerData.instance.players[i].capacity;
                 players[i].GetComponent<Player>().max_weight = PlayerData.instance.players[i].max_weight;
                 players[i].GetComponent<Player>().sanity= PlayerData.instance.players[i].sanity;
@@ -160,10 +199,9 @@ public class GameController : MonoBehaviour
                 players[i].GetComponent<Player>().pride = PlayerData.instance.players[i].pride;
                 players[i].GetComponent<Player>().envy = PlayerData.instance.players[i].envy;
                 players[i].GetComponent<Player>().wrath = PlayerData.instance.players[i].wrath;
+
+                players[i].name = PlayerData.instance.players[i].name;
             }
-            players[0].name = "Jose";
-            players[1].name = "Juan";
-            players[2].name = "Pedro";  
         }  
     }
     private int RandomValue(int _minValue,int _maxValue){
@@ -177,11 +215,32 @@ public class GameController : MonoBehaviour
         //btnBackSetting.onClick.AddListener(()=>BackToGame());
         // btnSetting.onClick.AddListener(()=>GoSettings());
         //btnSetting.onClick.AddListener(()=>RemoveStatus());
-        btnSetting.onClick.AddListener(()=>ChangeScene());
+        //btnSetting.onClick.AddListener(()=>ChangeScene());
+        btnSetting.onClick.AddListener(()=>KickPlayerEvent(1));
     }
     void ChangeScene(){
         PlayerData.instance.SaveDataPlayer();
+        PlayerPrefs.SetInt("current_players",current_players);
         SceneManager.LoadScene("Temp");
+    }
+
+    public void KickPlayerEvent(int _posDelete){
+        if (_posDelete > 0 && _posDelete < players.Length)
+        {
+            Destroy(players[_posDelete]);
+            GameObject[] _newArray = new GameObject[players.Length-1];
+            Button[] _newArray2 = new Button[array.Length-1];
+
+            _newArray = players.Where((val,idx)=>idx !=_posDelete).ToArray();
+            _newArray2 = array.Where((val,idx)=>idx !=_posDelete).ToArray();
+            players = _newArray;
+            array = _newArray2;
+        }
+        current_players--;
+        InstantiateButton();
+        ButtonsFuncionality();
+        ShowPlayerStats(current_index);
+        //ChangeScene();
     }
 
     void SetName(){

@@ -75,7 +75,7 @@ public class EventManager : MonoBehaviour
                 dayPanel.transform.GetChild(0).GetComponent<Text>().text = "Day " + gameController.survivedDays.ToString();
                 reportMessage = "";
                 for(int i = 0;i<gameController.players.Length;i++){
-                    DialogPanels.transform.GetChild(i).gameObject.SetActive(true);
+                    DialogPanels.transform.GetChild(i).gameObject.SetActive(false);
                 }
                 DamageReport();
                 print("kha");
@@ -194,6 +194,10 @@ public class EventManager : MonoBehaviour
         gameController.food += foodObtained;
         mes = "The party found " + foodObtained.ToString() + " food portions";
         reports.Push(mes);
+        //borrar players
+        foreach(int i in deletedPlayers){
+            gameController.KickPlayerEvent(i);
+        }
 
     }
     private int RandomValue(int _minValue,int _maxValue){
