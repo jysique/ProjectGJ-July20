@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class GameController : MonoBehaviour
 {
     private int max_players = 5;
     private int current_players = 3;
+    public enum sceneType {
+        InitialRoom,
+        BreakRoom,
+        ScoutRoom,
+    };
+    public sceneType _sceneType;
+    public Transform goal;
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3[] posPlayer;

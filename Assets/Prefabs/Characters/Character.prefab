@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6305204109301622013}
   - component: {fileID: 6305204109301622012}
   - component: {fileID: 6305204109301622015}
+  - component: {fileID: 2108608838}
   m_Layer: 9
   m_Name: Character
   m_TagString: Player
@@ -130,9 +131,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  lookRange: 5
+  lookEnemyRange: 5
+  lookItemRange: 15
   goal: {fileID: 0}
+  itemMask:
+    serializedVersion: 2
+    m_Bits: 1024
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
-  target: {fileID: 0}
+  actTarget: {fileID: 0}
+  isAttacking: 0
+  damage: 15
+  attackSpeed: 1
+--- !u!114 &2108608838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305204109301622014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c45a4e14a1c77a944b25c8f15f40d041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: koala webon
+  status:
+  - 
+  sex: 0
+  capacity: 0
+  max_weight: 0
+  sanity: 0
+  hunger: 0
+  salubrity: 100
+  fatigue: 0
+  gluttony: 0
+  sloth: 0
+  greed: 0
+  lust: 0
+  pride: 0
+  envy: 0
+  wrath: 0

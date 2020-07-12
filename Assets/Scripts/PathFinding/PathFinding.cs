@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class PathFinding : MonoBehaviour
 {
+    GameController gController;
     NavMeshAgent agent;
     Player player;
     public float speed;
@@ -25,12 +26,16 @@ public class PathFinding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gController = FindObjectOfType<GameController>();
         agent = GetComponent<NavMeshAgent>();
         player = GetComponent<Player>();
+        goal = gController.goal;
         agent.speed = speed;
         if (actTarget == null) {
             actTarget = goal;
         }
+
+        
     }
 
     // Update is called once per frame
