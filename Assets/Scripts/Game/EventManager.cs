@@ -55,7 +55,7 @@ public class EventManager : MonoBehaviour
             GameObject newBtn = Instantiate(btnOption);
             int index = i;
             newBtn.transform.SetParent(gridObj.transform,false);  
-            print(eventd.alternatives[i]);         
+                  
             newBtn.transform.GetChild(0).GetComponent<Text>().text = eventd.alternatives[i];
             newBtn.GetComponent<Button>().onClick.AddListener(() => MakeDesicion(index, eventd.alternatives,eventd.question));
         }

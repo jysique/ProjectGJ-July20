@@ -3,6 +3,7 @@ using System;
 
 [System.Serializable]
 public class Player: MonoBehaviour{
+    private GameController gameController;
     public string name;
     public string[] status = new string[1];
     public bool sex;
@@ -19,6 +20,11 @@ public class Player: MonoBehaviour{
     public bool pride;
     public bool envy;
     public bool wrath;
+    
+    void Start()
+    {
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
+    }
 
     public Player(){
         
@@ -160,20 +166,21 @@ public class Player: MonoBehaviour{
         probs[1] = 100 - probs[0];
         return(ChooseWithProbability(probs));
     }
-    public int WhoEat(Player[] otherPlayers){
+    public int WhoEat(string[] alternatives){
+        GameObject[] otherPlayers = gameController.players;
         int[] probs = new int[otherPlayers.Length];
         int total=0;
         for(int i = 0; i < otherPlayers.Length; i++){
             int relevancyValue = 0;
-            if(otherPlayers[i].hunger>30)relevancyValue+=1;
-            if(otherPlayers[i].hunger>60)relevancyValue+=2;
-            if(otherPlayers[i].hunger>90)relevancyValue+=3;
-            if(otherPlayers[i].name == name){
+            if(otherPlayers[i].GetComponent<Player>().hunger>30)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().hunger>60)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().hunger>90)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().name == name){
                 relevancyValue+=2;
                 if(gluttony)relevancyValue+=7;
             }
-            if(otherPlayers[i].salubrity<35)relevancyValue+=2;
-            if(otherPlayers[i].fatigue<40)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().salubrity<35)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().fatigue<40)relevancyValue+=1;
             probs[i] = relevancyValue;
             total+=relevancyValue;
         }
@@ -182,25 +189,26 @@ public class Player: MonoBehaviour{
         }
         return(ChooseWithProbability(probs));
     }
-    public int KickSomeone(Player[] otherPlayers){
+    public int KickSomeone(string[] alternatives){
+        GameObject[] otherPlayers = gameController.players;
         int[] probs = new int[otherPlayers.Length];
         int total=0;
         for(int i = 0; i < otherPlayers.Length; i++){
             int relevancyValue = 0;
-            if(otherPlayers[i].hunger>30)relevancyValue+=1;
-            if(otherPlayers[i].hunger>60)relevancyValue+=2;
-            if(otherPlayers[i].hunger>90)relevancyValue+=3;
-            if(otherPlayers[i].fatigue>30)relevancyValue+=1;
-            if(otherPlayers[i].fatigue>60)relevancyValue+=2;
-            if(otherPlayers[i].fatigue>90)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().hunger>30)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().hunger>60)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().hunger>90)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().fatigue>30)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().fatigue>60)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().fatigue>90)relevancyValue+=3;
             
-            if(otherPlayers[i].salubrity<80)relevancyValue+=1;
-            if(otherPlayers[i].salubrity<40)relevancyValue+=2;
-            if(otherPlayers[i].salubrity<20)relevancyValue+=3;
-            if(otherPlayers[i].sanity<80)relevancyValue+=1;
-            if(otherPlayers[i].sanity<40)relevancyValue+=2;
-            if(otherPlayers[i].sanity<20)relevancyValue+=3;
-            if(otherPlayers[i].name == name){
+            if(otherPlayers[i].GetComponent<Player>().salubrity<80)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().salubrity<40)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().salubrity<20)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().sanity<80)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().sanity<40)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().sanity<20)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().name == name){
                 relevancyValue=0;
             }
             probs[i] = relevancyValue;
@@ -211,20 +219,21 @@ public class Player: MonoBehaviour{
         }
         return(ChooseWithProbability(probs));
     }
-    public int WhoPlay(Player[] otherPlayers){
+    public int WhoPlay(string[] alternatives){
+        GameObject[] otherPlayers = gameController.players;
         int[] probs= new int[otherPlayers.Length];
         int total=0;
         for(int i = 0; i < otherPlayers.Length; i++){
             int relevancyValue = 0;
-            if(otherPlayers[i].sanity>30)relevancyValue+=1;
-            if(otherPlayers[i].sanity>60)relevancyValue+=2;
-            if(otherPlayers[i].sanity>90)relevancyValue+=3;
-            if(otherPlayers[i].name == name){
+            if(otherPlayers[i].GetComponent<Player>().sanity>30)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().sanity>60)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().sanity>90)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().name == name){
                 relevancyValue+=2;
                 if(envy)relevancyValue+=7;
             }
-            if(otherPlayers[i].salubrity<35)relevancyValue+=1;
-            if(otherPlayers[i].fatigue<20)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().salubrity<35)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().fatigue<20)relevancyValue+=2;
             probs[i] = relevancyValue;
             total+=relevancyValue;
         }
@@ -246,7 +255,18 @@ public class Player: MonoBehaviour{
         switch(question){
             case "Do you want to do something?":
                 return(DoSomething(alternatives));
-                break; 
+                break;
+            case "Choose who have to left the party":
+                return(KickSomeone(alternatives));
+                break;
+            case "Choose who will have the console":
+                return(WhoPlay(alternatives));
+                break;
+            case "Choose who will eat":
+                return(WhoEat(alternatives));
+                break;
+
+            
         }
         return 0;
         
