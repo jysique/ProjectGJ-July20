@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 public class GameController : MonoBehaviour
 {
     private int max_players = 5;
@@ -121,26 +122,37 @@ public class GameController : MonoBehaviour
                 players[i].GetComponent<Player>().salubrity=RandomValue(80,100);
                 players[i].GetComponent<Player>().fatigue=RandomValue(0,30);
                 players[i].GetComponent<Player>().status = new string[0];
+
+                players[i].GetComponent<Player>().gluttony = Convert.ToBoolean(RandomValue(0,1));
+                players[i].GetComponent<Player>().sloth = Convert.ToBoolean(RandomValue(0,1));
+                players[i].GetComponent<Player>().greed = Convert.ToBoolean(RandomValue(0,1));
+                players[i].GetComponent<Player>().lust = Convert.ToBoolean(RandomValue(0,1));
+                players[i].GetComponent<Player>().pride = Convert.ToBoolean(RandomValue(0,1));
+                players[i].GetComponent<Player>().envy = Convert.ToBoolean(RandomValue(0,1));
+                players[i].GetComponent<Player>().wrath = Convert.ToBoolean(RandomValue(0,1));
             }
             players[0].name = "Jose";
             players[1].name = "Juan";
             players[2].name = "Pedro"; 
         }else{
             for (int i = 0; i < players.Length; i++)
-            {
-                // print(PlayerData.instance.players[i].capacity);
-                
-                // players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
-                players[i].GetComponent<Player>() = PlayerData.instance.players[i];
+            {   
+                players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
+                players[i].GetComponent<Player>().capacity = PlayerData.instance.players[i].capacity;
+                players[i].GetComponent<Player>().max_weight = PlayerData.instance.players[i].max_weight;
+                players[i].GetComponent<Player>().sanity= PlayerData.instance.players[i].sanity;
+                players[i].GetComponent<Player>().hunger=PlayerData.instance.players[i].hunger;
+                players[i].GetComponent<Player>().salubrity=PlayerData.instance.players[i].salubrity;
+                players[i].GetComponent<Player>().fatigue=PlayerData.instance.players[i].fatigue;
+                players[i].GetComponent<Player>().status = PlayerData.instance.players[i].status;
 
-
-                // players[i].GetComponent<Player>().capacity = PlayerData.instance.players[i].capacity;
-                // players[i].GetComponent<Player>().max_weight = PlayerData.instance.players[i].max_weight;
-                // players[i].GetComponent<Player>().sanity= PlayerData.instance.players[i].sanity;
-                // players[i].GetComponent<Player>().hunger=PlayerData.instance.players[i].hunger;
-                // players[i].GetComponent<Player>().salubrity=PlayerData.instance.players[i].salubrity;
-                // players[i].GetComponent<Player>().fatigue=PlayerData.instance.players[i].fatigue;
-                // players[i].GetComponent<Player>().status = PlayerData.instance.players[i].status;
+                players[i].GetComponent<Player>().gluttony = PlayerData.instance.players[i].gluttony;
+                players[i].GetComponent<Player>().sloth = PlayerData.instance.players[i].sloth;
+                players[i].GetComponent<Player>().greed = PlayerData.instance.players[i].greed;
+                players[i].GetComponent<Player>().lust = PlayerData.instance.players[i].lust;
+                players[i].GetComponent<Player>().pride = PlayerData.instance.players[i].pride;
+                players[i].GetComponent<Player>().envy = PlayerData.instance.players[i].envy;
+                players[i].GetComponent<Player>().wrath = PlayerData.instance.players[i].wrath;
             }
             players[0].name = "Jose";
             players[1].name = "Juan";
@@ -148,7 +160,7 @@ public class GameController : MonoBehaviour
         }  
     }
     private int RandomValue(int _minValue,int _maxValue){
-        return Random.Range(_minValue,_maxValue);
+        return UnityEngine.Random.Range(_minValue,_maxValue);
     }
     void InitPanels(){
         panelPlayers.gameObject.SetActive(false);
