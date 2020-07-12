@@ -18,7 +18,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3[] posPlayer;
+    [Header("Party data")]
     public GameObject[] players;
+    public int food = 7;
+    public int survivedDays = 1;
     private Button[] array;
     [Header("Objects")]
     [SerializeField] private Button btnSetting;
@@ -131,6 +134,9 @@ public class GameController : MonoBehaviour
                 players[i].GetComponent<Player>().envy = Convert.ToBoolean(RandomValue(0,1));
                 players[i].GetComponent<Player>().wrath = Convert.ToBoolean(RandomValue(0,1));
             }
+            players[0].GetComponent<Player>().name = "Jose";
+            players[1].GetComponent<Player>().name = "Juan";
+            players[2].GetComponent<Player>().name = "Pedro";
             players[0].name = "Jose";
             players[1].name = "Juan";
             players[2].name = "Pedro"; 
@@ -138,6 +144,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < players.Length; i++)
             {   
                 players[i] = Instantiate(player, posPlayer[i], Quaternion.identity, parentPlayer.transform);
+                players[i].GetComponent<Player>().name = PlayerData.instance.players[i].name;
                 players[i].GetComponent<Player>().capacity = PlayerData.instance.players[i].capacity;
                 players[i].GetComponent<Player>().max_weight = PlayerData.instance.players[i].max_weight;
                 players[i].GetComponent<Player>().sanity= PlayerData.instance.players[i].sanity;
