@@ -23,6 +23,48 @@ public class Player: MonoBehaviour{
     public void setName(string _name){
         name = _name;
     }
+    public string getName(){
+        return name;
+    }
+    public bool getSex(){
+        return sex;
+    }
+    public void setCapacity(int _capacity){
+        capacity = _capacity;
+    }
+    public int getCapacity(){
+        return capacity;
+    }
+    public void setMaxWeight(int _max_weight){
+        max_weight = _max_weight;
+    }
+    public int getMaxWeight(){
+        return max_weight;
+    }
+    public void setSanity(int _value){
+        sanity +=_value;
+    }
+    public int getSanity(){
+        return sanity;
+    }
+    public void setHunger(int _value){
+        hunger +=_value;
+    }
+    public int getHunger(){
+        return hunger;
+    }
+    public void setSalubrity(int _value){
+        salubrity +=_value;
+    }
+    public int getSalubrity(){
+        return salubrity;
+    }
+    public void setFatigue(int _value){
+        fatigue +=_value;
+    }
+    public int getFatigue(){
+        return fatigue;
+    }
     public void setStatus(string _status,int _indice){
         status[_indice] = _status;
     }
@@ -36,7 +78,6 @@ public class Player: MonoBehaviour{
         _newArray[status.Length] = _newStatus;
         status = _newArray;
     }
-
     public void deleteStatus(int _posDelete){
         string[] _newArray = new string[status.Length];
         for (int i = _posDelete-1; i < status.Length-1; i++)
@@ -48,9 +89,12 @@ public class Player: MonoBehaviour{
     public string[] getStatus(){
         return status;
     }
+   
     public int ChooseWithProbability(int[] probs){
         int rand;
+
         rand = UnityEngine.Random.Range(1,101);
+        print(rand);
         for(int i = 0; i < probs.Length;i++){
             if(i == probs.Length-1){
                 return i;
@@ -58,16 +102,13 @@ public class Player: MonoBehaviour{
             if(rand<=probs[i]){
                 return i;
             }
-            else{
-                probs[i+1]+=probs[i];
-                return 0;
-            }
+            probs[i+1]+=probs[i];
 
         }
         return 0;
     }
 
-    public bool CanEnterTheParty(Player otherPlayer){
+    public int CanEnterTheParty(Player otherPlayer){
         int probabilityChange = 0;
         //conditions
         if(otherPlayer.sex != sex)probabilityChange-=5;
@@ -84,9 +125,9 @@ public class Player: MonoBehaviour{
         if(probs[0]>100)probs[0] = 100;
         if(probs[0]<0)probs[0] = 0;
         probs[1] = 100 - probs[0];
-        return(Convert.ToBoolean(ChooseWithProbability(probs)));
+        return(ChooseWithProbability(probs));
     }
-    public bool HaveToLeaveTheParty(Player otherPlayer){
+    public int HaveToLeaveTheParty(Player otherPlayer){
         int probabilityChange = 0;
         //conditions
         if(otherPlayer.sex != sex)probabilityChange+=5;
@@ -103,9 +144,9 @@ public class Player: MonoBehaviour{
         if(probs[0]>100)probs[0] = 100;
         if(probs[0]<0)probs[0] = 0;
         probs[1] = 100 - probs[0];
-        return(Convert.ToBoolean(ChooseWithProbability(probs)));
+        return(ChooseWithProbability(probs));
     }
-    public bool ChoosePath(){
+    public int ChoosePath(){
         int probabilityChange = 0;
         //conditions
         //calculate prob
@@ -114,7 +155,7 @@ public class Player: MonoBehaviour{
         if(probs[0]>100)probs[0] = 100;
         if(probs[0]<0)probs[0] = 0;
         probs[1] = 100 - probs[0];
-        return(Convert.ToBoolean(ChooseWithProbability(probs)));
+        return(ChooseWithProbability(probs));
     }
     public int WhoEat(Player[] otherPlayers){
         int[] probs = new int[otherPlayers.Length];
@@ -130,6 +171,35 @@ public class Player: MonoBehaviour{
             }
             if(otherPlayers[i].salubrity<35)relevancyValue+=2;
             if(otherPlayers[i].fatigue<40)relevancyValue+=1;
+            probs[i] = relevancyValue;
+            total+=relevancyValue;
+        }
+        for(int i = 0; i < probs.Length; i++){
+            probs[i]= (probs[i]*100)/total;
+        }
+        return(ChooseWithProbability(probs));
+    }
+    public int KickSomeone(Player[] otherPlayers){
+        int[] probs = new int[otherPlayers.Length];
+        int total=0;
+        for(int i = 0; i < otherPlayers.Length; i++){
+            int relevancyValue = 0;
+            if(otherPlayers[i].hunger>30)relevancyValue+=1;
+            if(otherPlayers[i].hunger>60)relevancyValue+=2;
+            if(otherPlayers[i].hunger>90)relevancyValue+=3;
+            if(otherPlayers[i].fatigue>30)relevancyValue+=1;
+            if(otherPlayers[i].fatigue>60)relevancyValue+=2;
+            if(otherPlayers[i].fatigue>90)relevancyValue+=3;
+            
+            if(otherPlayers[i].salubrity<80)relevancyValue+=1;
+            if(otherPlayers[i].salubrity<40)relevancyValue+=2;
+            if(otherPlayers[i].salubrity<20)relevancyValue+=3;
+            if(otherPlayers[i].sanity<80)relevancyValue+=1;
+            if(otherPlayers[i].sanity<40)relevancyValue+=2;
+            if(otherPlayers[i].sanity<20)relevancyValue+=3;
+            if(otherPlayers[i].name == name){
+                relevancyValue=0;
+            }
             probs[i] = relevancyValue;
             total+=relevancyValue;
         }
@@ -159,6 +229,25 @@ public class Player: MonoBehaviour{
             probs[i]= (probs[i]*100)/total;
         }
         return(ChooseWithProbability(probs));
+    }
+
+    public int DoSomething(string[] events){//falta agregar logica
+        int[] probs= new int[3];
+        probs[0] = 10;
+        probs[1] = 10;
+        probs[2] = 80;
+        return(ChooseWithProbability(probs));
+    }
+
+    public int Question(string[] alternatives,string question){
+        switch(question){
+            case "Do you want to do something?":
+                return(DoSomething(alternatives));
+                break; 
+        }
+        return 0;
+        
+            
     }
 
 
