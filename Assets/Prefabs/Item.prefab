@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2184803414438322798}
   - component: {fileID: 3232073673141776211}
   - component: {fileID: 2287541589231593229}
+  - component: {fileID: 3138849583811153986}
   m_Layer: 10
   m_Name: Item
   m_TagString: Untagged
@@ -92,7 +93,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2287541589231593229
 MonoBehaviour:
@@ -106,3 +107,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16bca05eaec83e4caf5f156b8b825ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!208 &3138849583811153986
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613727179469257181}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

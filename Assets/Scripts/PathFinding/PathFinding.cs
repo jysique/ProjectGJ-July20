@@ -14,6 +14,7 @@ public class PathFinding : MonoBehaviour
     public Transform goal;
     Transform item;
     public LayerMask itemMask;
+    public float interactionRange;
     Transform enemy;
     public LayerMask enemyMask;
     
@@ -31,11 +32,9 @@ public class PathFinding : MonoBehaviour
         player = GetComponent<Player>();
         goal = gController.goal;
         agent.speed = speed;
-        if (actTarget == null) {
-            actTarget = goal;
-        }
+        actTarget = goal;
+        agent.SetDestination(actTarget.position);
 
-        
     }
 
     // Update is called once per frame
@@ -49,15 +48,16 @@ public class PathFinding : MonoBehaviour
         if (item != null) {
             actTarget = item;
         }
-        enemy = findMaskObjectives(this.transform, lookEnemyRange, enemyMask, enemy, null);
+        enemy = findMaskObjectives(this.transform, lookEnemyRange, enemyMask, enemy, item);
         if (enemy != null) {
             actTarget = enemy;
         }
 
+        print(actTarget.name);
         agent.SetDestination(actTarget.position);
 
         if (enemy != null) {
-            if (Vector3.Distance(transform.position, enemy.position) < 1.5f) {
+            if (Vector3.Distance(transform.position, enemy.position) < interactionRange) {
                 if (!isAttacking) {
                     //play attack
                     StartCoroutine(startAttack());
@@ -65,6 +65,10 @@ public class PathFinding : MonoBehaviour
             }
         }
 
+        if (Physics.CheckSphere(transform.position, interactionRange, itemMask)) {
+            Destroy(item.gameObject);
+        }
+        Debug.DrawLine(transform.position, actTarget.position);
         Dead(this.gameObject, player.salubrity);
     }
 
