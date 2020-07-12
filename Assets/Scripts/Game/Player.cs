@@ -20,6 +20,9 @@ public class Player: MonoBehaviour{
     public bool envy;
     public bool wrath;
 
+    public Player(){
+        
+    }
     public void setName(string _name){
         name = _name;
     }
