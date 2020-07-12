@@ -18,7 +18,10 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject parentPlayer;
     [SerializeField] private GameObject player;
     [SerializeField] private Vector3[] posPlayer;
+    [Header("Party data")]
     public GameObject[] players;
+    public int food = 7;
+    public int survivedDays = 1;
     private Button[] array;
     [Header("Objects")]
     [SerializeField] private Button btnSetting;

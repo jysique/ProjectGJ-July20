@@ -20,6 +20,10 @@ public class Player: MonoBehaviour{
     public bool pride;
     public bool envy;
     public bool wrath;
+    //desicion variables
+    public bool console;
+    public bool guard;
+    public bool eats;
     
     void Start()
     {
@@ -103,7 +107,6 @@ public class Player: MonoBehaviour{
         int rand;
 
         rand = UnityEngine.Random.Range(1,101);
-        print(rand);
         for(int i = 0; i < probs.Length;i++){
             if(i == probs.Length-1){
                 return i;
@@ -171,7 +174,7 @@ public class Player: MonoBehaviour{
         int[] probs = new int[otherPlayers.Length];
         int total=0;
         for(int i = 0; i < otherPlayers.Length; i++){
-            int relevancyValue = 0;
+            int relevancyValue = 1;
             if(otherPlayers[i].GetComponent<Player>().hunger>30)relevancyValue+=1;
             if(otherPlayers[i].GetComponent<Player>().hunger>60)relevancyValue+=2;
             if(otherPlayers[i].GetComponent<Player>().hunger>90)relevancyValue+=3;
@@ -194,7 +197,7 @@ public class Player: MonoBehaviour{
         int[] probs = new int[otherPlayers.Length];
         int total=0;
         for(int i = 0; i < otherPlayers.Length; i++){
-            int relevancyValue = 0;
+            int relevancyValue = 1;
             if(otherPlayers[i].GetComponent<Player>().hunger>30)relevancyValue+=1;
             if(otherPlayers[i].GetComponent<Player>().hunger>60)relevancyValue+=2;
             if(otherPlayers[i].GetComponent<Player>().hunger>90)relevancyValue+=3;
@@ -219,12 +222,42 @@ public class Player: MonoBehaviour{
         }
         return(ChooseWithProbability(probs));
     }
+    public int WhoGuards(string[] alternatives){
+        GameObject[] otherPlayers = gameController.players;
+        int[] probs = new int[otherPlayers.Length];
+        int total=0;
+        for(int i = 0; i < otherPlayers.Length; i++){
+            int relevancyValue = 1;
+            if(otherPlayers[i].GetComponent<Player>().salubrity>30)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().salubrity>60)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().salubrity>90)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().sanity>30)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().sanity>60)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().sanity>90)relevancyValue+=3;
+            
+            if(otherPlayers[i].GetComponent<Player>().hunger<80)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().hunger<40)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().hunger<20)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().fatigue<80)relevancyValue+=1;
+            if(otherPlayers[i].GetComponent<Player>().fatigue<40)relevancyValue+=2;
+            if(otherPlayers[i].GetComponent<Player>().fatigue<20)relevancyValue+=3;
+            if(otherPlayers[i].GetComponent<Player>().name == name){
+                relevancyValue=0;
+            }
+            probs[i] = relevancyValue;
+            total+=relevancyValue;
+        }
+        for(int i = 0; i < probs.Length; i++){
+            probs[i]= (probs[i]*100)/total;
+        }
+        return(ChooseWithProbability(probs));
+    }
     public int WhoPlay(string[] alternatives){
         GameObject[] otherPlayers = gameController.players;
         int[] probs= new int[otherPlayers.Length];
         int total=0;
         for(int i = 0; i < otherPlayers.Length; i++){
-            int relevancyValue = 0;
+            int relevancyValue = 1;
             if(otherPlayers[i].GetComponent<Player>().sanity>30)relevancyValue+=1;
             if(otherPlayers[i].GetComponent<Player>().sanity>60)relevancyValue+=2;
             if(otherPlayers[i].GetComponent<Player>().sanity>90)relevancyValue+=3;
@@ -240,6 +273,12 @@ public class Player: MonoBehaviour{
         for(int i = 0; i < probs.Length; i++){
             probs[i]= (probs[i]*100)/total;
         }
+        return(ChooseWithProbability(probs));
+    }
+    public int attackedInGuard(){
+        int[] probs = new int[2];
+        probs[0] = 20;
+        probs[1] = 100 - probs[0];
         return(ChooseWithProbability(probs));
     }
 
@@ -262,8 +301,11 @@ public class Player: MonoBehaviour{
             case "Choose who will have the console":
                 return(WhoPlay(alternatives));
                 break;
-            case "Choose who will eat":
+            case "Who should eat today?":
                 return(WhoEat(alternatives));
+                break;
+            case "Who'll do guard today?":
+                return(WhoGuards(alternatives));
                 break;
 
             
